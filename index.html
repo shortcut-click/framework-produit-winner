@@ -1,0 +1,975 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Framework Produit Winner — Dropshipping</title>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  background: #141414;
+  color: #e0e0e0;
+  line-height: 1.6;
+  min-height: 100vh;
+}
+
+/* ── Header / Tabs ── */
+.header {
+  background: #1a1a1a;
+  border-bottom: 1px solid #2a2a2a;
+  padding: 20px 0 20px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+.header-inner {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+.tabs {
+  display: flex;
+  gap: 10px;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  padding-bottom: 2px;
+}
+.tab-btn {
+  background: transparent;
+  border: 1px solid #3a3a3a;
+  border-radius: 999px;
+  padding: 9px 20px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: #999;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.2s;
+}
+.tab-btn:hover { border-color: #555; color: #ccc; }
+.tab-btn.active { background: #fff; color: #111; border-color: #fff; font-weight: 600; }
+
+/* ── Main ── */
+.main {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 32px 24px 80px;
+}
+.tab-panel { display: none; }
+.tab-panel.active { display: block; }
+
+/* ── Phase header ── */
+.phase-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 8px;
+  gap: 16px;
+}
+.phase-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.85rem;
+  color: #aaa;
+  margin-bottom: 6px;
+}
+.phase-num {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+.pn-1 { background: #7c3aed22; color: #a78bfa; }
+.pn-2 { background: #16a34a22; color: #4ade80; }
+.pn-3 { background: #dc262622; color: #f87171; }
+.pn-4 { background: #ea580c22; color: #fb923c; }
+.pn-5 { background: #2563eb22; color: #60a5fa; }
+.phase-tagline {
+  font-size: 0.82rem;
+  color: #666;
+  text-align: right;
+  flex-shrink: 0;
+  margin-top: 28px;
+}
+.phase-title {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #f0f0f0;
+  margin-bottom: 4px;
+}
+.phase-subtitle {
+  font-size: 0.88rem;
+  color: #777;
+  margin-bottom: 28px;
+}
+
+/* ── Cards ── */
+.card {
+  background: #1e1e1e;
+  border: 1px solid #2a2a2a;
+  border-radius: 14px;
+  padding: 24px 28px;
+  margin-bottom: 16px;
+}
+.card h3 {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #f0f0f0;
+  margin-bottom: 8px;
+}
+.card p { font-size: 0.9rem; color: #aaa; margin-bottom: 6px; }
+.tag {
+  display: inline-block;
+  background: #2a2a2a;
+  border: 1px solid #333;
+  padding: 5px 14px;
+  border-radius: 8px;
+  font-size: 0.8rem;
+  color: #999;
+  margin-top: 10px;
+}
+
+/* ── Verdict ── */
+.verdict {
+  padding: 16px 24px;
+  margin-top: 24px;
+  font-size: 0.9rem;
+  color: #ccc;
+  background: #1e1e1e;
+  border: 1px solid #2a2a2a;
+  border-radius: 12px;
+}
+.verdict::before { content: '\2713  '; color: #4ade80; }
+
+/* ── Flow (overview) ── */
+.flow-subtitle {
+  font-size: 0.88rem;
+  color: #777;
+  margin-bottom: 24px;
+}
+.flow {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin-bottom: 40px;
+}
+.flow-step { text-align: center; }
+.flow-pill {
+  display: inline-block;
+  padding: 6px 18px;
+  border-radius: 999px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+.fp-qualifier { background: #7c3aed22; color: #a78bfa; border: 1px solid #7c3aed44; }
+.fp-valider { background: #16a34a22; color: #4ade80; border: 1px solid #16a34a44; }
+.fp-persona { background: #dc262622; color: #f87171; border: 1px solid #dc262644; }
+.fp-creer { background: #ea580c22; color: #fb923c; border: 1px solid #ea580c44; }
+.fp-tester { background: #2563eb22; color: #60a5fa; border: 1px solid #2563eb44; }
+.flow-label { font-size: 0.72rem; color: #666; }
+.flow-arrow { color: #444; font-size: 1.1rem; margin: 0 4px; margin-bottom: 16px; }
+
+/* ── Summary cards ── */
+.summary-card {
+  background: #1e1e1e;
+  border: 1px solid #2a2a2a;
+  border-radius: 14px;
+  padding: 24px 28px;
+  margin-bottom: 16px;
+}
+.summary-card .sc-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 14px;
+}
+.summary-card .sc-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.summary-card .sc-title h3 { font-size: 1.05rem; font-weight: 700; color: #f0f0f0; margin: 0; }
+.summary-card .sc-tagline { font-size: 0.8rem; color: #666; }
+.summary-card ul { list-style: none; padding: 0; margin-bottom: 16px; }
+.summary-card li {
+  font-size: 0.88rem;
+  color: #aaa;
+  padding: 3px 0;
+  padding-left: 18px;
+  position: relative;
+}
+.summary-card li::before { content: '—'; position: absolute; left: 0; color: #555; }
+.summary-card .sc-verdict {
+  background: #252525;
+  border-radius: 10px;
+  padding: 12px 18px;
+  font-size: 0.84rem;
+  color: #999;
+}
+
+/* ── Section title ── */
+.section-title {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #f0f0f0;
+  margin: 36px 0 16px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #2a2a2a;
+}
+
+/* ── Note box ── */
+.note-box {
+  background: #1e1e1e;
+  border: 1px solid #333;
+  border-left: 3px solid #fb923c;
+  border-radius: 10px;
+  padding: 18px 22px;
+  font-size: 0.86rem;
+  color: #aaa;
+  margin: 24px 0;
+  line-height: 1.65;
+}
+.note-box strong { color: #ddd; }
+
+/* ── Scoring grid (2x2) ── */
+.scoring-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  margin: 20px 0;
+}
+.score-cell {
+  background: #1e1e1e;
+  border: 1px solid #2a2a2a;
+  border-radius: 12px;
+  padding: 22px;
+}
+.score-cell h4 {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #999;
+  margin-bottom: 6px;
+}
+.score-cell p { font-size: 0.84rem; color: #777; margin-bottom: 14px; }
+.score-dots { display: flex; gap: 10px; }
+.dot {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 2px solid #3a3a3a;
+  background: #252525;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #666;
+  transition: all 0.2s;
+}
+.dot:hover { border-color: #666; }
+.dot.selected { background: #f0f0f0; border-color: #f0f0f0; color: #111; }
+.score-total {
+  text-align: center;
+  padding: 18px;
+  background: #1e1e1e;
+  border: 1px solid #2a2a2a;
+  border-radius: 12px;
+  margin: 20px 0;
+}
+.score-total .number { font-size: 2rem; font-weight: 800; color: #f0f0f0; }
+.score-total .label { font-size: 0.82rem; color: #666; }
+
+/* ── Sources ── */
+.source-item {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+  padding: 14px 0;
+  border-bottom: 1px solid #252525;
+}
+.source-item:last-child { border-bottom: none; }
+.source-icon {
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.7rem;
+  font-weight: 800;
+  flex-shrink: 0;
+  color: #fff;
+}
+.si-amazon { background: #b45309; }
+.si-meta { background: #16a34a; }
+.si-reddit { background: #dc2626; }
+.si-tiktok { background: #0891b2; }
+.si-google { background: #7c3aed; }
+.source-item h4 { font-size: 0.9rem; font-weight: 600; color: #ddd; margin-bottom: 2px; }
+.source-item p { font-size: 0.82rem; color: #888; }
+
+/* ── Persona card fields ── */
+.persona-field { margin-bottom: 20px; }
+.persona-field label {
+  display: block;
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #888;
+  margin-bottom: 8px;
+}
+.persona-field textarea {
+  width: 100%;
+  min-height: 52px;
+  background: #252525;
+  border: 1px solid #333;
+  border-radius: 10px;
+  padding: 14px;
+  font-size: 0.88rem;
+  font-family: inherit;
+  color: #ccc;
+  line-height: 1.5;
+  resize: vertical;
+  transition: border-color 0.2s;
+}
+.persona-field textarea::placeholder { color: #555; }
+.persona-field textarea:focus { outline: none; border-color: #555; }
+.persona-actions {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  margin-top: 8px;
+}
+.btn {
+  padding: 10px 24px;
+  border-radius: 10px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  transition: opacity 0.2s;
+}
+.btn:hover { opacity: 0.85; }
+.btn-primary { background: #f0f0f0; color: #111; }
+.btn-secondary { background: #2a2a2a; color: #999; border: 1px solid #3a3a3a; }
+.save-toast {
+  position: fixed;
+  bottom: 32px;
+  left: 50%;
+  transform: translateX(-50%) translateY(20px);
+  background: #4ade80;
+  color: #111;
+  padding: 12px 28px;
+  border-radius: 10px;
+  font-size: 0.9rem;
+  font-weight: 700;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s, transform 0.3s;
+  z-index: 999;
+}
+.save-toast.visible {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* ── Créer & Tester ── */
+.structure-list { counter-reset: structure; list-style: none; padding: 0; }
+.structure-list li {
+  counter-increment: structure;
+  padding: 14px 0 14px 48px;
+  position: relative;
+  border-bottom: 1px solid #252525;
+  font-size: 0.9rem;
+  color: #aaa;
+}
+.structure-list li::before {
+  content: counter(structure);
+  position: absolute;
+  left: 0;
+  top: 14px;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: #252525;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 0.8rem;
+  color: #888;
+}
+.structure-list li strong { color: #ddd; font-weight: 600; }
+
+.phase-bar {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 18px 22px;
+  background: #1e1e1e;
+  border: 1px solid #2a2a2a;
+  border-radius: 12px;
+  margin-bottom: 10px;
+}
+.phase-time {
+  background: #f0f0f0;
+  color: #111;
+  padding: 4px 12px;
+  border-radius: 6px;
+  font-size: 0.76rem;
+  font-weight: 700;
+  white-space: nowrap;
+}
+.phase-bar h4 { font-size: 0.9rem; font-weight: 600; color: #ddd; margin-bottom: 2px; }
+.phase-bar p { font-size: 0.83rem; color: #888; }
+
+.hook-item {
+  padding: 14px 20px;
+  background: #1e1e1e;
+  border: 1px solid #2a2a2a;
+  border-radius: 10px;
+  margin-bottom: 10px;
+}
+.hook-item strong { font-size: 0.88rem; color: #ddd; }
+.hook-item .example { font-size: 0.84rem; color: #777; font-style: italic; margin-top: 4px; }
+
+.metrics-row {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+  margin: 20px 0;
+}
+.metric-card {
+  flex: 1;
+  min-width: 140px;
+  background: #1e1e1e;
+  border: 1px solid #2a2a2a;
+  border-radius: 12px;
+  padding: 20px;
+  text-align: center;
+}
+.metric-card .value { font-size: 1.4rem; font-weight: 800; color: #f0f0f0; }
+.metric-card .mlabel { font-size: 0.78rem; color: #666; margin-top: 4px; }
+
+.diag-item {
+  display: flex;
+  gap: 14px;
+  align-items: center;
+  padding: 14px 20px;
+  background: #1e1e1e;
+  border: 1px solid #2a2a2a;
+  border-radius: 10px;
+  margin-bottom: 10px;
+}
+.diag-signal {
+  background: #dc262622;
+  color: #f87171;
+  padding: 4px 12px;
+  border-radius: 6px;
+  font-size: 0.76rem;
+  font-weight: 700;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.diag-item p { font-size: 0.88rem; color: #aaa; }
+
+/* ── Responsive ── */
+@media (max-width: 700px) {
+  .tabs { gap: 6px; }
+  .tab-btn { padding: 8px 14px; font-size: 0.8rem; }
+  .main { padding: 20px 16px 60px; }
+  .card { padding: 20px; }
+  .scoring-grid { grid-template-columns: 1fr; }
+  .flow { justify-content: center; }
+  .phase-header { flex-direction: column; }
+  .phase-tagline { text-align: left; margin-top: 0; }
+  .metrics-row { flex-direction: column; }
+  .phase-bar { flex-direction: column; align-items: flex-start; }
+}
+</style>
+</head>
+<body>
+
+<!-- ═══ HEADER ═══ -->
+<div class="header">
+  <div class="header-inner">
+    <div class="tabs">
+      <button class="tab-btn active" data-tab="overview">Vue d'ensemble</button>
+      <button class="tab-btn" data-tab="qualifier">1 &middot; Qualifier</button>
+      <button class="tab-btn" data-tab="valider">2 &middot; Valider</button>
+      <button class="tab-btn" data-tab="persona">3 &middot; Persona</button>
+      <button class="tab-btn" data-tab="creer">4 &middot; Cr&eacute;er &amp; Tester</button>
+    </div>
+  </div>
+</div>
+
+<div class="main">
+
+<!-- ═══ TAB 1 — VUE D'ENSEMBLE ═══ -->
+<div class="tab-panel active" id="tab-overview">
+
+  <div class="flow-subtitle">Le flow complet avant de d&eacute;penser un euro en publicit&eacute;</div>
+
+  <div class="flow">
+    <div class="flow-step">
+      <div class="flow-pill fp-qualifier">Qualifier</div>
+      <div class="flow-label">5 min &middot; 3 filtres</div>
+    </div>
+    <div class="flow-arrow">&rarr;</div>
+    <div class="flow-step">
+      <div class="flow-pill fp-valider">Valider</div>
+      <div class="flow-label">20 min &middot; 3 filtres</div>
+    </div>
+    <div class="flow-arrow">&rarr;</div>
+    <div class="flow-step">
+      <div class="flow-pill fp-persona">Persona</div>
+      <div class="flow-label">30 min &middot; 4 &eacute;tapes</div>
+    </div>
+    <div class="flow-arrow">&rarr;</div>
+    <div class="flow-step">
+      <div class="flow-pill fp-creer">Cr&eacute;er</div>
+      <div class="flow-label">Site + angle + cr&eacute;as</div>
+    </div>
+    <div class="flow-arrow">&rarr;</div>
+    <div class="flow-step">
+      <div class="flow-pill fp-tester">Tester</div>
+      <div class="flow-label">50&ndash;100&euro; &middot; 5 jours</div>
+    </div>
+  </div>
+
+  <!-- Summary cards -->
+  <div class="summary-card">
+    <div class="sc-head">
+      <div class="sc-title"><span class="phase-num pn-1">1</span><h3>Qualifier &mdash; 5 min</h3></div>
+      <div class="sc-tagline">&Eacute;limine vite</div>
+    </div>
+    <ul>
+      <li>Probl&egrave;me clair et douloureux</li>
+      <li>Compris en 3 sec sans le son</li>
+      <li>D&eacute;j&agrave; valid&eacute; ailleurs (US / UK / Asie)</li>
+    </ul>
+    <div class="sc-verdict">1 filtre rat&eacute; &rarr; poubelle imm&eacute;diate</div>
+  </div>
+
+  <div class="summary-card">
+    <div class="sc-head">
+      <div class="sc-title"><span class="phase-num pn-2">2</span><h3>Valider &mdash; 20 min</h3></div>
+      <div class="sc-tagline">Donn&eacute;es avant argent</div>
+    </div>
+    <ul>
+      <li>Marge &times;4 minimum livraison comprise</li>
+      <li>4 signaux de demande (Trends + AliExpress + TikTok + Meta)</li>
+      <li>3&ndash;5 concurrents avec pubs actives 30&ndash;45 jours</li>
+    </ul>
+    <div class="sc-verdict">1 filtre rat&eacute; &rarr; cherche un autre produit</div>
+  </div>
+
+  <div class="summary-card">
+    <div class="sc-head">
+      <div class="sc-title"><span class="phase-num pn-3">3</span><h3>Persona &mdash; 30 min</h3></div>
+      <div class="sc-tagline">Avant toute cr&eacute;ation</div>
+    </div>
+    <ul>
+      <li>Lister tous les acheteurs potentiels</li>
+      <li>Scorer sur 4 crit&egrave;res &rarr; choisir 1 persona</li>
+      <li>Valider avec les donn&eacute;es (reviews, comments, Reddit)</li>
+      <li>R&eacute;diger la fiche persona en 5 &eacute;l&eacute;ments</li>
+    </ul>
+    <div class="sc-verdict">1 persona = 1 angle = 1 direction pour tout le site et les cr&eacute;as</div>
+  </div>
+
+  <div class="summary-card">
+    <div class="sc-head">
+      <div class="sc-title"><span class="phase-num pn-4">4</span><h3>Cr&eacute;er &mdash; Site + Cr&eacute;as</h3></div>
+      <div class="sc-tagline">Construit autour du persona</div>
+    </div>
+    <ul>
+      <li>Site : 8 sections non n&eacute;gociables</li>
+      <li>Cr&eacute;a : hook &rarr; probl&egrave;me &rarr; solution &rarr; CTA (30 sec)</li>
+      <li>5 formules de hook &agrave; tester</li>
+    </ul>
+    <div class="sc-verdict">Pas de site g&eacute;n&eacute;rique &middot; Pas de cr&eacute;a qui parle &agrave; tout le monde</div>
+  </div>
+
+  <div class="summary-card">
+    <div class="sc-head">
+      <div class="sc-title"><span class="phase-num pn-5">5</span><h3>Tester &mdash; 50&ndash;100&euro;</h3></div>
+      <div class="sc-tagline">Les donn&eacute;es d&eacute;cident</div>
+    </div>
+    <ul>
+      <li>3 cr&eacute;as max &middot; 5 jours</li>
+      <li>Lecture des r&eacute;sultats par &eacute;tape du funnel</li>
+      <li>Changer 1 variable &agrave; la fois</li>
+    </ul>
+    <div class="sc-verdict">Donn&eacute;es positives &rarr; scale &middot; Donn&eacute;es n&eacute;gatives &rarr; analyse et it&egrave;re</div>
+  </div>
+
+</div>
+
+<!-- ═══ TAB 2 — QUALIFIER ═══ -->
+<div class="tab-panel" id="tab-qualifier">
+
+  <div class="phase-header">
+    <div>
+      <div class="phase-badge"><span class="phase-num pn-1">1</span> Phase 1 &middot; Qualifier &middot; 5 minutes</div>
+      <div class="phase-title">&Eacute;limine les mauvais produits sans perdre de temps</div>
+      <div class="phase-subtitle">Un seul filtre rat&eacute; = poubelle imm&eacute;diate, produit suivant</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Filtre 01 &mdash; Probl&egrave;me clair, douleur r&eacute;elle</h3>
+    <p>Le produit r&eacute;sout un probl&egrave;me concret et urgent. Plus la douleur est forte, plus l'avant/apr&egrave;s vend.</p>
+    <div class="tag">Question : qui souffre exactement, de quoi ?</div>
+  </div>
+
+  <div class="card">
+    <h3>Filtre 02 &mdash; Compris en 3 secondes, sans le son</h3>
+    <p>Le produit doit &ecirc;tre &eacute;vident sur TikTok sans audio. Si tu dois l'expliquer 30 secondes &rarr; &eacute;limin&eacute;.</p>
+    <div class="tag">Test : imagine une vid&eacute;o silencieuse de 3 sec</div>
+  </div>
+
+  <div class="card">
+    <h3>Filtre 03 &mdash; D&eacute;j&agrave; valid&eacute; ailleurs</h3>
+    <p>Le produit a fait ses preuves sur un march&eacute; en avance &mdash; US, UK ou Asie. Cherche &agrave; la source sur AliExpress, pas sur Minea.</p>
+    <div class="tag">Minea = tout le monde voit la m&ecirc;me chose</div>
+  </div>
+
+  <div class="verdict">Les 3 coch&eacute;s &rarr; passe &agrave; la validation</div>
+
+</div>
+
+<!-- ═══ TAB 3 — VALIDER ═══ -->
+<div class="tab-panel" id="tab-valider">
+
+  <div class="phase-header">
+    <div>
+      <div class="phase-badge"><span class="phase-num pn-2">2</span> Phase 2 &middot; Valider &middot; 20 minutes</div>
+      <div class="phase-title">Confirme par les donn&eacute;es avant d'investir</div>
+      <div class="phase-subtitle">Un seul filtre rat&eacute; = cherche un autre produit</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Filtre 01 &mdash; Marge &times;4 minimum</h3>
+    <p>Prix fournisseur + livraison &times; 4 = prix de vente minimum viable. Sans &ccedil;a, la pub absorbe tout.</p>
+    <div class="tag">Id&eacute;alement &times;5 pour de la s&eacute;curit&eacute;</div>
+  </div>
+
+  <div class="card">
+    <h3>Filtre 02 &mdash; 4 signaux de demande</h3>
+    <p>Google Trends stable ou en hausse (12 mois) &middot; 5 000+ commandes AliExpress, note 4.5+, photos clients &middot; 5+ vid&eacute;os TikTok &agrave; 100k+ vues &middot; 3+ pubs Meta actives depuis 30+ jours avec 500+ likes.</p>
+    <div class="tag">Les 4 coch&eacute;s = demande prouv&eacute;e</div>
+  </div>
+
+  <div class="card">
+    <h3>Filtre 03 &mdash; Concurrence dans la sweet spot</h3>
+    <p>3 &agrave; 5 concurrents avec des pubs qui tournent 30&ndash;45 jours sur Meta ou TikTok. Une pub rentable ne s'arr&ecirc;te pas.</p>
+    <div class="tag">Moins de 3 = non valid&eacute; &middot; Plus de 20 = satur&eacute;</div>
+  </div>
+
+  <div class="verdict">Les 3 coch&eacute;s &rarr; passe &agrave; la d&eacute;finition du persona</div>
+
+</div>
+
+<!-- ═══ TAB 4 — PERSONA ═══ -->
+<div class="tab-panel" id="tab-persona">
+
+  <div class="phase-header">
+    <div>
+      <div class="phase-badge"><span class="phase-num pn-3">3</span> Phase 3 &middot; Persona &middot; 30 minutes</div>
+      <div class="phase-title">Avant de cr&eacute;er quoi que ce soit</div>
+      <div class="phase-subtitle">4 &eacute;tapes pour choisir le bon persona</div>
+    </div>
+  </div>
+
+  <!-- Étape A -->
+  <div class="card">
+    <h3>&Eacute;tape A &mdash; Lister tous les acheteurs potentiels</h3>
+    <p style="margin-bottom:14px;">Pour chaque produit, pose-toi 3 questions :</p>
+    <p><strong style="color:#ddd;">Qui souffre directement ?</strong> &mdash; l'utilisateur final</p>
+    <p><strong style="color:#ddd;">Qui ach&egrave;te pour quelqu'un d'autre ?</strong> &mdash; cadeau, parent, conjoint</p>
+    <p><strong style="color:#ddd;">Qui est acheteur mais pas utilisateur ?</strong> &mdash; souvent le cas b&eacute;b&eacute;/enfant</p>
+  </div>
+
+  <!-- Étape B -->
+  <div class="card">
+    <h3>&Eacute;tape B &mdash; Scorer sur 4 crit&egrave;res (1 &agrave; 3)</h3>
+
+    <div class="scoring-grid">
+      <div class="score-cell">
+        <h4>Douleur</h4>
+        <p>&Agrave; quel point ce probl&egrave;me lui pourrit la vie ?</p>
+        <div class="score-dots" data-criterion="douleur">
+          <div class="dot" data-value="1">1</div>
+          <div class="dot" data-value="2">2</div>
+          <div class="dot" data-value="3">3</div>
+        </div>
+      </div>
+      <div class="score-cell">
+        <h4>Urgence + budget</h4>
+        <p>Cherche-t-il une solution maintenant, avec les moyens ?</p>
+        <div class="score-dots" data-criterion="urgence">
+          <div class="dot" data-value="1">1</div>
+          <div class="dot" data-value="2">2</div>
+          <div class="dot" data-value="3">3</div>
+        </div>
+      </div>
+      <div class="score-cell">
+        <h4>Accessibilit&eacute;</h4>
+        <p>Est-il facile &agrave; toucher sur Meta ou TikTok ?</p>
+        <div class="score-dots" data-criterion="accessibilite">
+          <div class="dot" data-value="1">1</div>
+          <div class="dot" data-value="2">2</div>
+          <div class="dot" data-value="3">3</div>
+        </div>
+      </div>
+      <div class="score-cell">
+        <h4>D&eacute;clencheur &eacute;motionnel</h4>
+        <p>Ach&egrave;te-t-il avec le c&oelig;ur plut&ocirc;t que la t&ecirc;te ?</p>
+        <div class="score-dots" data-criterion="emotion">
+          <div class="dot" data-value="1">1</div>
+          <div class="dot" data-value="2">2</div>
+          <div class="dot" data-value="3">3</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="score-total">
+      <div class="number" id="score-display">0</div>
+      <div class="label">/ 12 &mdash; Fais &ccedil;a pour chaque persona. Le score le plus &eacute;lev&eacute; gagne.</div>
+    </div>
+  </div>
+
+  <!-- Étape C -->
+  <div class="card">
+    <h3>&Eacute;tape C &mdash; Valider avec les donn&eacute;es (pas l'intuition)</h3>
+
+    <div class="source-item">
+      <div class="source-icon si-amazon">Am</div>
+      <div>
+        <h4>Amazon reviews 1 &eacute;toile + 5 &eacute;toiles</h4>
+        <p>Qui se plaint ? Dans quelle situation ? Ces plaintes = tes angles marketing.</p>
+      </div>
+    </div>
+    <div class="source-item">
+      <div class="source-icon si-meta">Me</div>
+      <div>
+        <h4>Commentaires des pubs concurrentes (Meta Ads Library)</h4>
+        <p>Qui commente, qui tague, qui dit &laquo; j'en veux un &raquo; ? Ton persona se r&eacute;v&egrave;le spontan&eacute;ment.</p>
+      </div>
+    </div>
+    <div class="source-item">
+      <div class="source-icon si-reddit">Re</div>
+      <div>
+        <h4>Reddit + groupes Facebook de niche</h4>
+        <p>Qui pose des questions sur le probl&egrave;me ? Quel vocabulaire utilise-t-il ?</p>
+      </div>
+    </div>
+    <div class="source-item">
+      <div class="source-icon si-tiktok">Tt</div>
+      <div>
+        <h4>Commentaires TikTok sur des vid&eacute;os similaires</h4>
+        <p>Qui demande &laquo; o&ugrave; acheter &ccedil;a ? &raquo; &middot; Qui tague quelqu'un ? &rarr; profil de l'acheteur r&eacute;el.</p>
+      </div>
+    </div>
+    <div class="source-item">
+      <div class="source-icon si-google">Go</div>
+      <div>
+        <h4>Google &laquo; produit + avis &raquo; ou &laquo; produit + forum &raquo;</h4>
+        <p>Profil d&eacute;mographique r&eacute;el des acheteurs existants. Contexte d'usage concret.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Étape D -->
+  <div class="card">
+    <h3>&Eacute;tape D &mdash; Fiche persona en 5 &eacute;l&eacute;ments</h3>
+
+    <div class="persona-field">
+      <label>1 &middot; Situation de vie (contexte pr&eacute;cis, pas juste &acirc;ge/genre)</label>
+      <textarea id="pf-situation" placeholder="ex : Femme 32 ans, t&eacute;l&eacute;travail 3j/sem, appartement mal chauff&eacute;, budget ok"></textarea>
+    </div>
+    <div class="persona-field">
+      <label>2 &middot; Moment d&eacute;clencheur (quand cherche-t-elle ce produit ?)</label>
+      <textarea id="pf-declencheur" placeholder="ex : Apr&egrave;s une journ&eacute;e &agrave; avoir froid, en scrollant TikTok le soir"></textarea>
+    </div>
+    <div class="persona-field">
+      <label>3 &middot; &Eacute;motion dominante (peur / frustration / d&eacute;sir / honte)</label>
+      <textarea id="pf-emotion" placeholder="ex : Frustration + envie de confort imm&eacute;diat + fatigue du plaid sur les &eacute;paules"></textarea>
+    </div>
+    <div class="persona-field">
+      <label>4 &middot; Angle / hook (1&egrave;re phrase de ta pub)</label>
+      <textarea id="pf-hook" placeholder="ex : Tu passes tes journ&eacute;es &agrave; bosser avec un plaid sur les &eacute;paules ?"></textarea>
+    </div>
+    <div class="persona-field">
+      <label>5 &middot; Plateforme principale</label>
+      <textarea id="pf-plateforme" placeholder="ex : TikTok le soir + Meta le week-end. Format vid&eacute;o courte <30 sec."></textarea>
+    </div>
+
+    <div class="persona-actions">
+      <button class="btn btn-primary" id="btn-save-persona">Sauvegarder la fiche</button>
+      <button class="btn btn-secondary" id="btn-reset-persona">R&eacute;initialiser</button>
+    </div>
+    <div class="save-toast" id="save-toast">Fiche t&eacute;l&eacute;charg&eacute;e</div>
+  </div>
+
+  <div class="note-box">
+    <strong>Nuance cl&eacute; 2025&ndash;2026 :</strong> Meta et TikTok trouvent les gens tout seuls avec des audiences larges. Le persona n'est pas un filtre technique dans le gestionnaire de pubs &mdash; c'est l'angle de ta cr&eacute;a. Tu parles &agrave; une personne pr&eacute;cise dans ta vid&eacute;o. L'algo fait le reste.
+  </div>
+
+  <div class="verdict">Fiche compl&egrave;te &rarr; tu peux maintenant cr&eacute;er le site et les cr&eacute;as</div>
+
+</div>
+
+<!-- ═══ TAB 5 — CRÉER & TESTER ═══ -->
+<div class="tab-panel" id="tab-creer">
+
+  <div class="phase-header">
+    <div>
+      <div class="phase-badge"><span class="phase-num pn-4">4</span> Phase 4 &middot; Cr&eacute;er &amp; Tester</div>
+      <div class="phase-title">Tout est construit autour du persona choisi</div>
+      <div class="phase-subtitle">Pas de site g&eacute;n&eacute;rique. Pas de cr&eacute;a qui parle &agrave; tout le monde.</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Le site</h3>
+    <p>Titre, description, images, sections &mdash; tout parle au persona. Le hook de la fiche persona = le titre H1 de ta page produit. Les b&eacute;n&eacute;fices = les douleurs du persona r&eacute;solues.</p>
+  </div>
+
+  <div class="card">
+    <h3>Les cr&eacute;as &mdash; 3 maximum</h3>
+    <p><span class="tag" style="margin:0 4px 0 0;">1 persona &middot; 1 angle &middot; 3 cr&eacute;as diff&eacute;rentes sur cet angle</span> Pas 3 personas diff&eacute;rents. Tu isoles une variable &agrave; la fois pour comprendre ce qui marche.</p>
+  </div>
+
+  <div class="card">
+    <h3>Le budget test</h3>
+    <p>50&ndash;100&euro; &middot; 5 jours &middot; 1 persona &middot; 3 cr&eacute;as. Si pas de clics &rarr; probl&egrave;me de hook ou de produit. Si clics sans achat &rarr; probl&egrave;me de site ou de prix.</p>
+  </div>
+
+  <div class="card">
+    <h3>Lecture des r&eacute;sultats</h3>
+    <p><strong>Pas de clics</strong> &rarr; hook ou produit probl&eacute;matique</p>
+    <p><strong>Clics sans ajout panier</strong> &rarr; prix ou site probl&eacute;matique</p>
+    <p><strong>Ajout panier sans achat</strong> &rarr; friction au checkout ou livraison</p>
+    <p><strong>Ventes mais no profit</strong> &rarr; marge ou CPM trop &eacute;lev&eacute;</p>
+  </div>
+
+  <div class="note-box">
+    Changer 1 variable &agrave; la fois. Les donn&eacute;es d&eacute;cident &mdash; pas l'intuition. Un produit qui semble parfait en recherche ne survit pas toujours au premier contact avec une vraie audience.
+  </div>
+
+  <div class="verdict">Donn&eacute;es positives &rarr; scale &middot; Donn&eacute;es n&eacute;gatives &rarr; analyse et it&egrave;re</div>
+
+</div>
+
+</div><!-- /main -->
+
+<!-- ═══ JAVASCRIPT ═══ -->
+<script>
+(function() {
+  // Tab navigation
+  var tabs = document.querySelectorAll('.tab-btn');
+  var panels = document.querySelectorAll('.tab-panel');
+  tabs.forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      tabs.forEach(function(t) { t.classList.remove('active'); });
+      panels.forEach(function(p) { p.classList.remove('active'); });
+      btn.classList.add('active');
+      document.getElementById('tab-' + btn.dataset.tab).classList.add('active');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  });
+
+  // Scoring
+  var scores = { douleur: 0, urgence: 0, accessibilite: 0, emotion: 0 };
+  document.querySelectorAll('.score-dots').forEach(function(group) {
+    var criterion = group.dataset.criterion;
+    group.querySelectorAll('.dot').forEach(function(dot) {
+      dot.addEventListener('click', function() {
+        group.querySelectorAll('.dot').forEach(function(d) { d.classList.remove('selected'); });
+        dot.classList.add('selected');
+        scores[criterion] = parseInt(dot.dataset.value);
+        var total = scores.douleur + scores.urgence + scores.accessibilite + scores.emotion;
+        document.getElementById('score-display').textContent = total;
+      });
+    });
+  });
+
+  // Persona localStorage
+  var fields = ['pf-situation', 'pf-declencheur', 'pf-emotion', 'pf-hook', 'pf-plateforme'];
+  function loadPersona() {
+    try {
+      var data = JSON.parse(localStorage.getItem('persona-card'));
+      if (data) fields.forEach(function(id) {
+        var el = document.getElementById(id);
+        if (el && data[id]) el.value = data[id];
+      });
+    } catch(e) {}
+  }
+  var labels = {
+    'pf-situation': 'Situation de vie',
+    'pf-declencheur': 'Moment déclencheur',
+    'pf-emotion': 'Émotion dominante',
+    'pf-hook': 'Angle / hook',
+    'pf-plateforme': 'Plateforme principale'
+  };
+
+  document.getElementById('btn-save-persona').addEventListener('click', function() {
+    var lines = ['FICHE PERSONA — PRODUIT WINNER', ''];
+    var empty = true;
+    fields.forEach(function(id) {
+      var val = document.getElementById(id).value.trim();
+      if (val) empty = false;
+      lines.push((labels[id] || id).toUpperCase());
+      lines.push(val || '(non rempli)');
+      lines.push('');
+    });
+    if (empty) {
+      var toast = document.getElementById('save-toast');
+      toast.textContent = 'Remplis au moins un champ';
+      toast.style.background = '#f87171';
+      toast.classList.add('visible');
+      setTimeout(function() { toast.classList.remove('visible'); toast.textContent = 'Fiche téléchargée'; toast.style.background = '#4ade80'; }, 2500);
+      return;
+    }
+    // Also save to localStorage for persistence
+    var obj = {};
+    fields.forEach(function(id) { obj[id] = document.getElementById(id).value; });
+    localStorage.setItem('persona-card', JSON.stringify(obj));
+    // Download as .txt
+    var blob = new Blob([lines.join('\n')], { type: 'text/plain;charset=utf-8' });
+    var url = URL.createObjectURL(blob);
+    var a = document.createElement('a');
+    a.href = url;
+    a.download = 'fiche-persona.txt';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+    var toast = document.getElementById('save-toast');
+    toast.classList.add('visible');
+    setTimeout(function() { toast.classList.remove('visible'); }, 2500);
+  });
+  document.getElementById('btn-reset-persona').addEventListener('click', function() {
+    fields.forEach(function(id) { document.getElementById(id).value = ''; });
+    localStorage.removeItem('persona-card');
+  });
+  loadPersona();
+})();
+</script>
+</body>
+</html>
